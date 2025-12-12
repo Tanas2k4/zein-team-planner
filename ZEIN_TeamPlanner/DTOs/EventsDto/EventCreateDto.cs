@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Shared;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.EventsDto
 {
-    public class CreateEventDto
+    public class EventCreateDto
     {
         [Required(ErrorMessage = "* Không được để trống tiêu đề sự kiện")]
         [StringLength(200, ErrorMessage = "Tiêu đề không được vượt quá 200 ký tự")]

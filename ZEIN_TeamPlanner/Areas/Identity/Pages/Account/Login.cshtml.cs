@@ -3,12 +3,8 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
 using ZEIN_TeamPlanner.Models;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ZEIN_TeamPlanner.Areas.Identity.Pages.Account
 {
@@ -18,7 +14,7 @@ namespace ZEIN_TeamPlanner.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel (SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
             _logger = logger;
@@ -38,11 +34,11 @@ namespace ZEIN_TeamPlanner.Areas.Identity.Pages.Account
         {
             [Required(ErrorMessage = "Vui lòng nhập email.")]
             [EmailAddress(ErrorMessage = "Email không hợp lệ.")]
-            public string Email { get; set; }
+            public string Email { get; set; } = null!;
 
             [Required(ErrorMessage = "Vui lòng nhập mật khẩu.")]
             [DataType(DataType.Password)]
-            public string Password { get; set; }
+            public string Password { get; set; } = null!; 
 
             [Display(Name = "Ghi nhớ đăng nhập?")]
             public bool RememberMe { get; set; }

@@ -8,17 +8,17 @@ namespace ZEIN_TeamPlanner.Models
 
         [Required]
         public int GroupId { get; set; }
-        public Group Group { get; set; }
+        public Group Group { get; set; } = null!;
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = null!;
 
         [Required]
         public GroupRole Role { get; set; }
 
         [Required]
-        public string Token { get; set; }
+        public string Token { get; set; } = null!;
 
         public DateTime SentAt { get; set; }
         public DateTime? AcceptedAt { get; set; }

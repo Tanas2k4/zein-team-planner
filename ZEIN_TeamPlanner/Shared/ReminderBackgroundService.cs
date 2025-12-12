@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TeamPlanner.Data;
 using ZEIN_TeamPlanner.Models;
-using ZEIN_TeamPlanner.Services;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
-namespace ZEIN_TeamPlanner
+namespace ZEIN_TeamPlanner.Shared
 {
     public class ReminderBackgroundService : BackgroundService
     {

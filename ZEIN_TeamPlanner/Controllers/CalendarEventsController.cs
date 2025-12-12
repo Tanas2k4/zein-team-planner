@@ -2,12 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using NodaTime;
-using System.Linq;
 using System.Security.Claims;
 using TeamPlanner.Data;
-using ZEIN_TeamPlanner.Models;
-using ZEIN_TeamPlanner.Services;
+using ZEIN_TeamPlanner.DTOs.EventsDto;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
 namespace ZEIN_TeamPlanner.Controllers
 {
@@ -211,12 +209,12 @@ namespace ZEIN_TeamPlanner.Controllers
             ViewBag.GroupId = groupId;
             ViewBag.GroupName = group?.GroupName;
             ViewBag.TimeZones = GetTimeZoneSelectList();
-            return View(new CreateEventDto { GroupId = groupId, StartTime = DateTimeOffset.Now, TimeZoneId = "Asia/Ho_Chi_Minh" });
+            return View(new EventCreateDto { GroupId = groupId, StartTime = DateTimeOffset.Now, TimeZoneId = "Asia/Ho_Chi_Minh" });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateEventDto dto)
+        public async Task<IActionResult> Create(EventCreateDto dto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await _groupService.IsUserAdminAsync(dto.GroupId, userId))

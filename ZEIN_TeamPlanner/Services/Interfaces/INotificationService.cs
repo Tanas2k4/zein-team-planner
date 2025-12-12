@@ -1,6 +1,6 @@
 ﻿using ZEIN_TeamPlanner.Models;
 
-namespace ZEIN_TeamPlanner.Services
+namespace ZEIN_TeamPlanner.Services.Interfaces
 {
     public interface INotificationService
     {

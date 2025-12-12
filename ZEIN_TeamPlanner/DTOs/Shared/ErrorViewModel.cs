@@ -1,4 +1,4 @@
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.Shared
 {
     public class ErrorViewModel
     {

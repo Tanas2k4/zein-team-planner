@@ -319,7 +319,6 @@ namespace ZEIN_TeamPlanner.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("EntityType")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FileName")
@@ -327,14 +326,12 @@ namespace ZEIN_TeamPlanner.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("FileUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -342,7 +339,8 @@ namespace ZEIN_TeamPlanner.Migrations
                     b.HasIndex("UserId");
 
                     b.HasIndex("EntityType", "EntityId", "FileName")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[EntityType] IS NOT NULL");
 
                     b.ToTable("FileAttachments");
                 });
@@ -474,7 +472,6 @@ namespace ZEIN_TeamPlanner.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RelatedEntityId")
@@ -484,7 +481,6 @@ namespace ZEIN_TeamPlanner.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -644,8 +640,7 @@ namespace ZEIN_TeamPlanner.Migrations
                     b.HasOne("ZEIN_TeamPlanner.Models.ApplicationUser", "User")
                         .WithMany("FileAttachments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("User");
                 });
