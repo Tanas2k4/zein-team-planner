@@ -2,10 +2,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TeamPlanner.Data;
-using ZEIN_TeamPlanner;
 using ZEIN_TeamPlanner.Hubs;
 using ZEIN_TeamPlanner.Models;
-using ZEIN_TeamPlanner.Services;
+using ZEIN_TeamPlanner.Services.Implementations;
+using ZEIN_TeamPlanner.Services.Interfaces;
+using ZEIN_TeamPlanner.Shared;
 var builder = WebApplication.CreateBuilder(args);
 
 // DB context

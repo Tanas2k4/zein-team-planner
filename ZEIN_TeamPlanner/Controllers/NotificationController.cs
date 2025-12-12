@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using TeamPlanner.Data;
-using ZEIN_TeamPlanner.Services;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
 namespace ZEIN_TeamPlanner.Controllers
 {

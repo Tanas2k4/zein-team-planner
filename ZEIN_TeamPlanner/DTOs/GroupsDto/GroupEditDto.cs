@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.GroupsDto
 {
-    public class EditGroupDto
+    public class GroupEditDto
     {
         public int GroupId { get; set; }
 

@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZEIN_TeamPlanner.DTOs.Shared;
+using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Shared;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.TasksDto
 {
-    public class CreateTaskDto
+    public class TaskCreateDto
     {
         [Required(ErrorMessage = "* Task title cannot be empty")]
         [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters")]

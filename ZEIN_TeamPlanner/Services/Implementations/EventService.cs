@@ -1,10 +1,11 @@
-﻿using Ical.Net;
-using Ical.Net.DataTypes;
+﻿using Ical.Net.DataTypes;
 using Microsoft.EntityFrameworkCore;
 using TeamPlanner.Data;
+using ZEIN_TeamPlanner.DTOs.EventsDto;
 using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
-namespace ZEIN_TeamPlanner.Services
+namespace ZEIN_TeamPlanner.Services.Implementations
 {
     public class EventService : IEventService
     {
@@ -17,7 +18,7 @@ namespace ZEIN_TeamPlanner.Services
             _groupService = groupService;
         }
 
-        public async Task<CalendarEvent> CreateEventAsync(CreateEventDto dto, string userId)
+        public async Task<CalendarEvent> CreateEventAsync(EventCreateDto dto, string userId)
         {
             // Check Admin permission or group creator
             if (!await _groupService.IsUserAdminAsync(dto.GroupId, userId))

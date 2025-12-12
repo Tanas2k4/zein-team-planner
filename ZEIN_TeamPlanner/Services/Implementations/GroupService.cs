@@ -4,8 +4,10 @@ using ZEIN_TeamPlanner.Models;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using ZEIN_TeamPlanner.Services.Interfaces;
+using ZEIN_TeamPlanner.DTOs.GroupsDto;
 
-namespace ZEIN_TeamPlanner.Services
+namespace ZEIN_TeamPlanner.Services.Implementations
 {
     public class GroupService : IGroupService
     {
@@ -40,7 +42,7 @@ namespace ZEIN_TeamPlanner.Services
                     group.Members.Any(m => m.UserId == userId && m.Role == GroupRole.Admin && m.LeftAt == null));
         }
 
-        public async Task<Group> CreateGroupAsync(CreateGroupDto dto, string userId)
+        public async Task<Group> CreateGroupAsync(GroupCreateDto dto, string userId)
         {
             if (await _context.Groups.AnyAsync(g => g.GroupName == dto.GroupName))
                 throw new InvalidOperationException("Group name already exists.");
@@ -88,7 +90,7 @@ namespace ZEIN_TeamPlanner.Services
             return group;
         }
 
-        public async Task<Group> UpdateGroupAsync(EditGroupDto dto, string userId)
+        public async Task<Group> UpdateGroupAsync(GroupEditDto dto, string userId)
         {
             var group = await _context.Groups
                 .Include(g => g.Members)

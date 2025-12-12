@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Shared;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.EventsDto
 {
-    public class CreateEventDto
+    public class EventCreateDto
     {
         [Required(ErrorMessage = "* Event title cannot be empty")]
         [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters")]

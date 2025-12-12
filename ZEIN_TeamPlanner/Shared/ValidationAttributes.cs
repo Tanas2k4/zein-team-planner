@@ -1,7 +1,7 @@
 ﻿//CHECK CONSTRAINTS ABOUT TIME 
 using System.ComponentModel.DataAnnotations;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.Shared
 {
     public class FutureDateAttribute : ValidationAttribute
     {
@@ -9,7 +9,7 @@ namespace ZEIN_TeamPlanner.Models
         {
             if (value == null)
             {
-                return ValidationResult.Success;
+                return ValidationResult.Success!;
             }
 
             if (value is DateTime date)
@@ -27,7 +27,7 @@ namespace ZEIN_TeamPlanner.Models
                 }
             }
 
-            return ValidationResult.Success;
+            return ValidationResult.Success!;
         }
     }
 
@@ -44,7 +44,7 @@ namespace ZEIN_TeamPlanner.Models
         {
             if (value == null)
             {
-                return ValidationResult.Success;
+                return ValidationResult.Success!;
             }
 
             var startTimeProperty = validationContext.ObjectType.GetProperty(_startTimePropertyName);
@@ -67,7 +67,7 @@ namespace ZEIN_TeamPlanner.Models
                 }
             }
 
-            return ValidationResult.Success;
+            return ValidationResult.Success!;
         }
     }
 }

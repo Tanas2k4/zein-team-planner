@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.GroupsDto
 {
-    public class CreateGroupDto
+    public class GroupCreateDto
     {
         [Required(ErrorMessage = "* Group name cannot be empty")]
         [StringLength(100, ErrorMessage = "Group name cannot exceed 100 characters")]

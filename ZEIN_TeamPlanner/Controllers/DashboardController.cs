@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using TeamPlanner.Data;
+using ZEIN_TeamPlanner.DTOs.Shared;
 using ZEIN_TeamPlanner.Models;
 
 namespace ZEIN_TeamPlanner.Controllers

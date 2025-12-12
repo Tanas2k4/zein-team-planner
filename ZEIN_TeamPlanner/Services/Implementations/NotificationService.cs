@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using TeamPlanner.Data;
 using ZEIN_TeamPlanner.Hubs;
 using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
-namespace ZEIN_TeamPlanner.Services
+namespace ZEIN_TeamPlanner.Services.Implementations
 {
     public class NotificationService : INotificationService
     {

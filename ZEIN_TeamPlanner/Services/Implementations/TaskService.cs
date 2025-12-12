@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TeamPlanner.Data;
+using ZEIN_TeamPlanner.DTOs.TasksDto;
 using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
-namespace ZEIN_TeamPlanner.Services
+namespace ZEIN_TeamPlanner.Services.Implementations
 {
     public class TaskService : ITaskService
     {
@@ -15,7 +17,7 @@ namespace ZEIN_TeamPlanner.Services
             _groupService = groupService;
         }
 
-        public async Task<TaskItem> CreateTaskAsync(CreateTaskDto dto, string userId)
+        public async Task<TaskItem> CreateTaskAsync(TaskCreateDto dto, string userId)
         {
             if (!await _groupService.IsUserAdminAsync(dto.GroupId, userId))
                 throw new UnauthorizedAccessException("You do not have permission to create tasks in this group.");
@@ -59,7 +61,7 @@ namespace ZEIN_TeamPlanner.Services
             return task;
         }
 
-        public async Task<TaskItem> UpdateTaskAsync(EditTaskDto dto, string userId)
+        public async Task<TaskItem> UpdateTaskAsync(TaskEditDto dto, string userId)
         {
             var task = await _context.TaskItems
                 .Include(t => t.Group).ThenInclude(g => g.Members)

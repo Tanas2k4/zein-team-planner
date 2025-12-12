@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TeamPlanner.Data;
+using ZEIN_TeamPlanner.DTOs.GroupsDto;
 using ZEIN_TeamPlanner.Models;
-using ZEIN_TeamPlanner.Services;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
 namespace ZEIN_TeamPlanner.Controllers
 {
@@ -120,12 +121,12 @@ namespace ZEIN_TeamPlanner.Controllers
                 .Select(u => new { u.Id, u.FullName })
                 .ToListAsync();
             ViewBag.Users = users;
-            return View(new CreateGroupDto());
+            return View(new GroupCreateDto());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateGroupDto dto)
+        public async Task<IActionResult> Create(GroupCreateDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -199,7 +200,7 @@ namespace ZEIN_TeamPlanner.Controllers
                 return Forbid();
 
             // Map group data to DTO for editing
-            var dto = new EditGroupDto
+            var dto = new GroupEditDto
             {
                 GroupId = group.GroupId,
                 GroupName = group.GroupName,
@@ -219,7 +220,7 @@ namespace ZEIN_TeamPlanner.Controllers
                                       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EditGroupDto dto)
+        public async Task<IActionResult> Edit(GroupEditDto dto)
         {
             if (!ModelState.IsValid)
             {

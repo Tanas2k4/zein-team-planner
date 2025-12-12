@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using ZEIN_TeamPlanner.Models;
+﻿using ZEIN_TeamPlanner.Models;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.Shared
 {
     public class DashboardViewModel
     {

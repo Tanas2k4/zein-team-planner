@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ZEIN_TeamPlanner.DTOs.Shared;
+using ZEIN_TeamPlanner.Models;
+using ZEIN_TeamPlanner.Shared;
 
-namespace ZEIN_TeamPlanner.Models
+namespace ZEIN_TeamPlanner.DTOs.TasksDto
 {
-    public class EditTaskDto
+    public class TaskEditDto
     {
         public int TaskItemId { get; set; }
 

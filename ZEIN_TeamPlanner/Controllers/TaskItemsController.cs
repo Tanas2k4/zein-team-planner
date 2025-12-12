@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using TeamPlanner.Data;
+using ZEIN_TeamPlanner.DTOs.TasksDto;
 using ZEIN_TeamPlanner.Models;
-using ZEIN_TeamPlanner.Services;
+using ZEIN_TeamPlanner.Services.Interfaces;
 
 namespace ZEIN_TeamPlanner.Controllers
 {
@@ -171,12 +172,12 @@ namespace ZEIN_TeamPlanner.Controllers
             ViewBag.GroupId = groupId;
             ViewBag.GroupName = group.GroupName;
 
-            return View(new CreateTaskDto { GroupId = groupId });
+            return View(new TaskCreateDto { GroupId = groupId });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateTaskDto dto)
+        public async Task<IActionResult> Create(TaskCreateDto dto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await _groupService.IsUserAdminAsync(dto.GroupId, userId))
@@ -250,7 +251,7 @@ namespace ZEIN_TeamPlanner.Controllers
             if (!await _taskService.CanAccessTaskAsync(id, userId))
                 return Forbid();
 
-            var dto = new EditTaskDto
+            var dto = new TaskEditDto
             {
                 TaskItemId = task.TaskItemId,
                 Title = task.Title,
@@ -283,7 +284,7 @@ namespace ZEIN_TeamPlanner.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EditTaskDto dto)
+        public async Task<IActionResult> Edit(TaskEditDto dto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!await _taskService.CanAccessTaskAsync(dto.TaskItemId, userId))
