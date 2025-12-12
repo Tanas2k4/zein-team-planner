@@ -20,7 +20,7 @@ namespace ZEIN_TeamPlanner.Services.Implementations
         public async Task<TaskItem> CreateTaskAsync(TaskCreateDto dto, string userId)
         {
             if (!await _groupService.IsUserAdminAsync(dto.GroupId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền tạo nhiệm vụ trong nhóm này.");
+                throw new UnauthorizedAccessException("You do not have permission to create tasks in this group.");
 
             if (!string.IsNullOrEmpty(dto.AssignedToUserId))
             {
@@ -29,14 +29,14 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                     || await _context.Groups
                         .AnyAsync(g => g.GroupId == dto.GroupId && g.CreatedByUserId == dto.AssignedToUserId);
                 if (!isValidAssignee)
-                    throw new InvalidOperationException("Người được giao không phải là thành viên hoặc người tạo nhóm.");
+                    throw new InvalidOperationException("Assigned user is not a group member or group creator.");
             }
 
             if (dto.PriorityId.HasValue && !await _context.Priorities.AnyAsync(p => p.PriorityId == dto.PriorityId))
-                throw new InvalidOperationException("Ưu tiên không hợp lệ.");
+                throw new InvalidOperationException("Invalid priority.");
 
             if (dto.Deadline.HasValue && dto.Deadline <= DateTime.UtcNow)
-                throw new InvalidOperationException("Hạn chót phải lớn hơn thời điểm hiện tại.");
+                throw new InvalidOperationException("Deadline must be greater than current time.");
 
             var now = DateTime.UtcNow;
 
@@ -68,10 +68,10 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(t => t.TaskItemId == dto.TaskItemId);
 
             if (task == null)
-                throw new KeyNotFoundException("Nhiệm vụ không tồn tại.");
+                throw new KeyNotFoundException("Task does not exist.");
 
             if (!await _groupService.IsUserAdminAsync(task.GroupId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền chỉnh sửa nhiệm vụ này.");
+                throw new UnauthorizedAccessException("You do not have permission to edit this task.");
 
             if (!string.IsNullOrEmpty(dto.AssignedToUserId))
             {
@@ -80,14 +80,14 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                     || await _context.Groups
                         .AnyAsync(g => g.GroupId == task.GroupId && g.CreatedByUserId == dto.AssignedToUserId);
                 if (!isValidAssignee)
-                    throw new InvalidOperationException("Người được giao không phải là thành viên hoặc người tạo nhóm.");
+                    throw new InvalidOperationException("Assigned user is not a group member or group creator.");
             }
 
             if (dto.PriorityId.HasValue && !await _context.Priorities.AnyAsync(p => p.PriorityId == dto.PriorityId))
-                throw new InvalidOperationException("Ưu tiên không hợp lệ.");
+                throw new InvalidOperationException("Invalid priority.");
 
             if (dto.Deadline.HasValue && dto.Deadline <= DateTime.UtcNow)
-                throw new InvalidOperationException("Hạn chót phải lớn hơn thời điểm hiện tại.");
+                throw new InvalidOperationException("Deadline must be greater than current time.");
 
             var now = DateTime.UtcNow;
             var previousStatus = task.Status;
@@ -132,10 +132,10 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(t => t.TaskItemId == taskId);
 
             if (task == null)
-                throw new KeyNotFoundException("Nhiệm vụ không tồn tại.");
+                throw new KeyNotFoundException("Task does not exist.");
 
             if (!await _groupService.IsUserAdminAsync(task.GroupId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền xóa nhiệm vụ này.");
+                throw new UnauthorizedAccessException("You do not have permission to delete this task.");
 
             _context.TaskItems.Remove(task);
             await _context.SaveChangesAsync();
@@ -148,10 +148,10 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(t => t.TaskItemId == taskId);
 
             if (task == null)
-                throw new KeyNotFoundException("Nhiệm vụ không tồn tại.");
+                throw new KeyNotFoundException("Task does not exist.");
 
             if (!await CanAccessTaskAsync(taskId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền cập nhật trạng thái nhiệm vụ này.");
+                throw new UnauthorizedAccessException("You do not have permission to update this task status.");
 
             var now = DateTime.UtcNow;
             var previousStatus = task.Status;

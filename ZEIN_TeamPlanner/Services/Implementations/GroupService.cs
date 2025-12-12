@@ -45,7 +45,7 @@ namespace ZEIN_TeamPlanner.Services.Implementations
         public async Task<Group> CreateGroupAsync(GroupCreateDto dto, string userId)
         {
             if (await _context.Groups.AnyAsync(g => g.GroupName == dto.GroupName))
-                throw new InvalidOperationException("Tên nhóm đã tồn tại.");
+                throw new InvalidOperationException("Group name already exists.");
 
             var group = new Group
             {
@@ -97,13 +97,13 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(g => g.GroupId == dto.GroupId);
 
             if (group == null)
-                throw new KeyNotFoundException("Nhóm không tồn tại.");
+                throw new KeyNotFoundException("Group does not exist.");
 
             if (!await IsUserAdminAsync(dto.GroupId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền chỉnh sửa nhóm này.");
+                throw new UnauthorizedAccessException("You do not have permission to edit this group.");
 
             if (await _context.Groups.AnyAsync(g => g.GroupName == dto.GroupName && g.GroupId != dto.GroupId))
-                throw new InvalidOperationException("Tên nhóm đã tồn tại.");
+                throw new InvalidOperationException("Group name already exists.");
 
             // Update group details only
             group.GroupName = dto.GroupName;
@@ -120,18 +120,18 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(g => g.GroupId == groupId);
 
             if (group == null)
-                throw new KeyNotFoundException("Nhóm không tồn tại.");
+                throw new KeyNotFoundException("Group does not exist.");
 
             if (!await IsUserAdminAsync(groupId, adminId))
-                throw new UnauthorizedAccessException("Bạn không có quyền xóa thành viên.");
+                throw new UnauthorizedAccessException("You do not have permission to remove members.");
 
             var member = group.Members.FirstOrDefault(m => m.UserId == memberId && m.LeftAt == null);
             if (member == null)
-                throw new KeyNotFoundException("Thành viên không tồn tại trong nhóm.");
+                throw new KeyNotFoundException("Member does not exist in the group.");
 
-            // Không cho phép xóa chính mình
+            // Do not allow removing yourself
             if (memberId == adminId)
-                throw new InvalidOperationException("Không thể xóa chính bạn khỏi nhóm.");
+                throw new InvalidOperationException("You cannot remove yourself from the group.");
 
             member.LeftAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
@@ -146,10 +146,10 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(g => g.GroupId == groupId);
 
             if (group == null)
-                throw new KeyNotFoundException("Nhóm không tồn tại.");
+                throw new KeyNotFoundException("Group does not exist.");
 
             if (!await IsUserAdminAsync(groupId, adminId))
-                throw new UnauthorizedAccessException("Bạn không có quyền xóa nhóm.");
+                throw new UnauthorizedAccessException("You do not have permission to delete the group.");
 
             _context.GroupMembers.RemoveRange(group.Members);
             _context.TaskItems.RemoveRange(group.Tasks);
@@ -166,14 +166,14 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(g => g.GroupId == groupId);
 
             if (group == null)
-                throw new KeyNotFoundException("Nhóm không tồn tại.");
+                throw new KeyNotFoundException("Group does not exist.");
 
             var member = group.Members.FirstOrDefault(m => m.UserId == userId && m.LeftAt == null);
             if (member == null)
-                throw new KeyNotFoundException("Bạn không phải là thành viên của nhóm này.");
+                throw new KeyNotFoundException("You are not a member of this group.");
 
             if (member.Role == GroupRole.Admin && group.Members.Count(m => m.Role == GroupRole.Admin && m.LeftAt == null) == 1)
-                throw new InvalidOperationException("Bạn là Admin duy nhất, không thể rời nhóm. Vui lòng chỉ định Admin khác trước khi rời.");
+                throw new InvalidOperationException("You are the only Admin and cannot leave the group. Please assign another Admin before leaving.");
 
             member.LeftAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();

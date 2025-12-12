@@ -9,23 +9,23 @@ namespace ZEIN_TeamPlanner.DTOs.EventsDto
     {
         public int CalendarEventId { get; set; }
 
-        [Required(ErrorMessage = "* Không được để trống tiêu đề sự kiện")]
-        [StringLength(200, ErrorMessage = "Tiêu đề không được vượt quá 200 ký tự")]
+        [Required(ErrorMessage = "* Event title cannot be empty")]
+        [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters")]
         public string Title { get; set; } = "";
 
-        [StringLength(1000, ErrorMessage = "Mô tả không được vượt quá 1000 ký tự")]
+        [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters")]
         public string Description { get; set; } = "";
 
-        [Required(ErrorMessage = "* Vui lòng chọn thời gian bắt đầu")]
-        [FutureDate(ErrorMessage = "* Thời gian bắt đầu phải lớn hơn thời điểm hiện tại")] // check constraint for future date
+        [Required(ErrorMessage = "* Please select start time")]
+        [FutureDate(ErrorMessage = "* Start time must be greater than current time")] // check constraint for future date
         [DataType(DataType.DateTime)]
         public DateTimeOffset StartTime { get; set; }
 
-        [EndTimeGreaterThanStartTime("StartTime", ErrorMessage = "* Thời gian kết thúc phải lớn hơn thời gian bắt đầu")] // check constraint for end time greater than start time
+        [EndTimeGreaterThanStartTime("StartTime", ErrorMessage = "* End time must be greater than start time")] // check constraint for end time greater than start time
         [DataType(DataType.DateTime)]
         public DateTimeOffset? EndTime { get; set; }
 
-        [Required(ErrorMessage = "* Vui lòng chọn múi giờ")]
+        [Required(ErrorMessage = "* Please select time zone")]
         [StringLength(100)]
         public string TimeZoneId { get; set; } = "UTC";
 
@@ -34,10 +34,10 @@ namespace ZEIN_TeamPlanner.DTOs.EventsDto
 
         public bool IsAllDay { get; set; } = false;
 
-        [StringLength(500, ErrorMessage = "Quy tắc lặp không được vượt quá 500 ký tự")]
+        [StringLength(500, ErrorMessage = "Recurrence rule cannot exceed 500 characters")]
         public string? RecurrenceRule { get; set; }
 
-        [Required(ErrorMessage = "* Vui lòng chọn loại sự kiện")]
+        [Required(ErrorMessage = "* Please select event type")]
         public CalendarEvent.EventType Type { get; set; } = CalendarEvent.EventType.Meeting;
     }
 }

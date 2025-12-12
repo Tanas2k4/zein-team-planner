@@ -40,7 +40,7 @@ namespace ZEIN_TeamPlanner.Shared
                         {
                             await notificationService.CreateNotificationAsync(
                                 task.AssignedToUserId,
-                                $"Nhiệm vụ '{task.Title}' sắp đến hạn vào {task.Deadline.Value:dd MMMM yyyy HH:mm}.",
+                                $"Task '{task.Title}' is due on {task.Deadline.Value:dd MMMM yyyy HH:mm}.",
                                 "TaskReminder",
                                 task.TaskItemId.ToString(),
                                 "TaskItem"
@@ -57,7 +57,7 @@ namespace ZEIN_TeamPlanner.Shared
                         {
                             await notificationService.CreateNotificationAsync(
                                 adminId,
-                                $"Nhiệm vụ '{task.Title}' trong nhóm '{task.Group.GroupName}' sắp đến hạn vào {task.Deadline.Value:dd MMMM yyyy HH:mm}.",
+                                $"Task '{task.Title}' in group '{task.Group.GroupName}' is due on {task.Deadline.Value:dd MMMM yyyy HH:mm}.",
                                 "TaskReminder",
                                 task.TaskItemId.ToString(),
                                 "TaskItem"
@@ -83,7 +83,7 @@ namespace ZEIN_TeamPlanner.Shared
                         {
                             await notificationService.CreateNotificationAsync(
                                 userId,
-                                $"Sự kiện '{@event.Title}' trong nhóm '{@event.Group.GroupName}' sắp diễn ra vào {@event.StartTime:dd MMMM yyyy HH:mm}.",
+                                $"Event '{@event.Title}' in group '{@event.Group.GroupName}' will start on {@event.StartTime:dd MMMM yyyy HH:mm}.",
                                 "EventReminder",
                                 @event.CalendarEventId.ToString(),
                                 "CalendarEvent"

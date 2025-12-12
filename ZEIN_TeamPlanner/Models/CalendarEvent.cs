@@ -6,7 +6,7 @@ namespace ZEIN_TeamPlanner.Models
     {
         public int CalendarEventId { get; set; }
 
-        [Required(ErrorMessage = "* Không được để trống tiêu đề sự kiện")]
+        [Required(ErrorMessage = "* Event title cannot be empty")]
         [StringLength(200)]
         public string Title { get; set; } = "";
 

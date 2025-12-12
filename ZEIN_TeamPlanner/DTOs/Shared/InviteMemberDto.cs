@@ -5,11 +5,12 @@ namespace ZEIN_TeamPlanner.DTOs.Shared
 {
     public class InviteMemberDto
     {
-        [Required(ErrorMessage = "* Vui lòng nhập email")]
-        [EmailAddress(ErrorMessage = "* Email không hợp lệ")]
+
+        [Required(ErrorMessage = "* Please enter email")]
+        [EmailAddress(ErrorMessage = "* Email is not valid")]
         public string Email { get; set; } = null!;
 
-        [Required(ErrorMessage = "* Vui lòng chọn vai trò")]
+        [Required(ErrorMessage = "* Please select role")]
         public GroupRole Role { get; set; }
 
         [Required]

@@ -121,7 +121,7 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        alert('Không thể cập nhật thời gian sự kiện.');
+                        alert('Can not update event time.');
                         calendar.refetchEvents();
                     } else {
                         // Optional: Add TempData success message via JavaScript

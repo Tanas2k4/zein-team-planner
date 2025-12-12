@@ -8,7 +8,7 @@ namespace ZEIN_TeamPlanner.DTOs.Shared
         public string TotalHoursWorked { get; set; }
         public int ProjectCount { get; set; }
         public int CompletedProjectCount { get; set; }
-        public int TaskWorkingCount { get; set; } // Không sử dụng nữa
+        public int TaskWorkingCount { get; set; } // No longer in use
         public List<DateTime> ProjectProgressDates { get; set; }
         public List<int> AchievedProjects { get; set; } // Done
         public List<int> TargetProjects { get; set; }

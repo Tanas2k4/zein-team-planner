@@ -20,15 +20,15 @@ namespace ZEIN_TeamPlanner.Services.Implementations
 
         public async Task<CalendarEvent> CreateEventAsync(EventCreateDto dto, string userId)
         {
-            // Kiểm tra quyền Admin hoặc người tạo nhóm
+            // Check Admin permission or group creator
             if (!await _groupService.IsUserAdminAsync(dto.GroupId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền tạo sự kiện trong nhóm này.");
+                throw new UnauthorizedAccessException("You do not have permission to create events in this group.");
 
-            // Validate thời gian
+            // Validate time
             if (dto.EndTime.HasValue && dto.EndTime <= dto.StartTime)
-                throw new InvalidOperationException("Thời gian kết thúc phải sau thời gian bắt đầu.");
+                throw new InvalidOperationException("End time must be after start time.");
 
-            // Validate quy tắc lặp
+            // Validate recurrence rule
             if (!string.IsNullOrEmpty(dto.RecurrenceRule))
             {
                 try
@@ -38,15 +38,15 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 }
                 catch
                 {
-                    throw new InvalidOperationException("Quy tắc lặp không hợp lệ (phải tuân theo định dạng iCal RRULE).");
+                    throw new InvalidOperationException("Invalid recurrence rule (must follow iCal RRULE format).");
                 }
             }
 
-            // Validate múi giờ
+            // Validate time zone
             if (!string.IsNullOrEmpty(dto.TimeZoneId) &&
                 !TimeZoneInfo.GetSystemTimeZones().Any(tz => tz.Id == dto.TimeZoneId) &&
                 !NodaTime.DateTimeZoneProviders.Tzdb.Ids.Contains(dto.TimeZoneId))
-                throw new InvalidOperationException("Múi giờ không hợp lệ.");
+                throw new InvalidOperationException("Invalid time zone.");
 
             var calendarEvent = new CalendarEvent
             {
@@ -73,16 +73,16 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 .FirstOrDefaultAsync(e => e.CalendarEventId == dto.CalendarEventId);
 
             if (calendarEvent == null)
-                throw new KeyNotFoundException("Sự kiện không tồn tại.");
+                throw new KeyNotFoundException("Event does not exist.");
 
             if (!await _groupService.IsUserAdminAsync(calendarEvent.GroupId, userId))
-                throw new UnauthorizedAccessException("Bạn không có quyền chỉnh sửa sự kiện này.");
+                throw new UnauthorizedAccessException("You do not have permission to edit this event.");
 
-            // Validate thời gian
+            // Validate time
             if (dto.EndTime.HasValue && dto.EndTime <= dto.StartTime)
-                throw new InvalidOperationException("Thời gian kết thúc phải sau thời gian bắt đầu.");
+                throw new InvalidOperationException("End time must be after start time.");
 
-            // Validate quy tắc lặp
+            // Validate recurrence rule
             if (!string.IsNullOrEmpty(dto.RecurrenceRule))
             {
                 try
@@ -92,15 +92,15 @@ namespace ZEIN_TeamPlanner.Services.Implementations
                 }
                 catch
                 {
-                    throw new InvalidOperationException("Quy tắc lặp không hợp lệ (phải tuân theo định dạng iCal RRULE).");
+                    throw new InvalidOperationException("Invalid recurrence rule (must follow iCal RRULE format).");
                 }
             }
 
-            // Validate múi giờ
+            // Validate time zone
             if (!string.IsNullOrEmpty(dto.TimeZoneId) &&
                 !TimeZoneInfo.GetSystemTimeZones().Any(tz => tz.Id == dto.TimeZoneId) &&
                 !NodaTime.DateTimeZoneProviders.Tzdb.Ids.Contains(dto.TimeZoneId))
-                throw new InvalidOperationException("Múi giờ không hợp lệ.");
+                throw new InvalidOperationException("Invalid time zone.");
 
             calendarEvent.Title = dto.Title;
             calendarEvent.Description = dto.Description;

@@ -148,7 +148,7 @@
 
                 if (!startTimeInput.value || startTime <= now) {
                     isValid = false;
-                    startTimeInput.setCustomValidity("Thời gian bắt đầu phải lớn hơn thời điểm hiện tại.");
+                    startTimeInput.setCustomValidity("Start time must be greater than current time.");
                     startTimeInput.reportValidity();
                 } else {
                     startTimeInput.setCustomValidity("");
@@ -156,7 +156,7 @@
 
                 if (endTime && endTime <= startTime) {
                     isValid = false;
-                    endTimeInput.setCustomValidity("Thời gian kết thúc phải lớn hơn thời gian bắt đầu.");
+                    endTimeInput.setCustomValidity("End time must be greater than start time.");
                     endTimeInput.reportValidity();
                 } else {
                     endTimeInput.setCustomValidity("");

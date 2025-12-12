@@ -65,7 +65,7 @@ namespace ZEIN_TeamPlanner.Controllers
 
             if (!groups.Any())
             {
-                ViewBag.Message = "Bạn chưa tham gia nhóm nào. Hãy tham gia hoặc tạo một nhóm để xem sự kiện.";
+                ViewBag.Message = "Join or create a group to view events.";
             }
 
             return View();
@@ -189,7 +189,7 @@ namespace ZEIN_TeamPlanner.Controllers
                 return Forbid();
 
             if (end.HasValue && end <= start)
-                return BadRequest("Thời gian kết thúc phải sau thời gian bắt đầu.");
+                return BadRequest("The end time must be after the start time.");
 
             calendarEvent.StartTime = start;
             calendarEvent.EndTime = end;

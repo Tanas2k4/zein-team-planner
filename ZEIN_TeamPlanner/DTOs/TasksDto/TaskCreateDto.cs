@@ -7,28 +7,28 @@ namespace ZEIN_TeamPlanner.DTOs.TasksDto
 {
     public class TaskCreateDto
     {
-        [Required(ErrorMessage = "* Không được để trống tiêu đề nhiệm vụ")]
-        [StringLength(200, ErrorMessage = "Tiêu đề không được vượt quá 200 ký tự")]
+        [Required(ErrorMessage = "* Task title cannot be empty")]
+        [StringLength(200, ErrorMessage = "Title cannot exceed 200 characters")]
         public string Title { get; set; } = "";
 
-        [StringLength(1000, ErrorMessage = "Mô tả không được vượt quá 1000 ký tự")]
+        [StringLength(1000, ErrorMessage = "Description cannot exceed 1000 characters")]
         public string Description { get; set; } = "";
 
-        [Required(ErrorMessage = "* Vui lòng chọn trạng thái")]
+        [Required(ErrorMessage = "* Please select status")]
         public TaskItem.TaskStatus Status { get; set; } = TaskItem.TaskStatus.ToDo;
 
-        [FutureDate(ErrorMessage = "* Hạn chót phải lớn hơn thời điểm hiện tại")]
+        [FutureDate(ErrorMessage = "* Deadline must be greater than current time")]
         [DataType(DataType.Date)]
         public DateTime? Deadline { get; set; }
 
         public string? AssignedToUserId { get; set; }
 
-        [Required(ErrorMessage = "* Nhiệm vụ phải thuộc một group")]
+        [Required(ErrorMessage = "* Task must belong to a group")]
         public int GroupId { get; set; }
 
         public int? PriorityId { get; set; }
 
-        [StringLength(500, ErrorMessage = "Tags không được vượt quá 500 ký tự")]
+        [StringLength(500, ErrorMessage = "Tags cannot exceed 500 characters")]
         public string? Tags { get; set; }
     }
 }
