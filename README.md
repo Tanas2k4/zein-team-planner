@@ -1,42 +1,52 @@
-# ZEIN TEAM PLANNER
+# ZEIN Team Planner
 
-**ZEIN Team Planner** là một ứng dụng website quản lý công việc nhóm, được xây dựng bằng **ASP.NET Core MVC**. Ứng dụng giúp các nhóm làm việc cộng tác hiệu quả hơn bằng cách theo dõi, phân công và giám sát tiến độ các tác vụ một cách trực quan và dễ sử dụng.
-<img width="1841" height="969" alt="image" src="https://github.com/user-attachments/assets/ada9cf90-1814-4169-8c59-224a726330b2" />
+[![.NET 9.0](https://img.shields.io/badge/.NET-9.0-512BD4?logo=.net&logoColor=white)](https://dotnet.microsoft.com/)
+[![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/apps/aspnet)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+**ZEIN Team Planner** là ứng dụng web quản lý công việc nhóm, được xây dựng bằng ASP.NET Core MVC.  
+Ứng dụng giúp các team theo dõi, phân công và giám sát tiến độ nhiệm vụ một cách trực quan và dễ sử dụng.
 
+![Demo Screenshot](https://github.com/user-attachments/assets/ada9cf90-1814-4169-8c59-224a726330b2)
 
+## Tính năng hiện có
 
+- Quản lý Tasks và Events
+- Phân công người thực hiện cho từng Task
+- Trạng thái Task: To Do → In Progress → Done
+- Quản lý deadline và ngày tạo
+- Lịch (Calendar) hiển thị Tasks & Events
+- Sidebar điều hướng
+- Giao diện responsive cơ bản
 
----
+## Tính năng đang phát triển
 
-## ✨ TÍNH NĂNG HIỆN CÓ và ĐANG XÂY DỰNG
+- Thông báo nhắc việc
+- Báo cáo tiến độ và thống kê chi tiết
+- Comment & attachment cho Task
+- Tích hợp thêm biểu đồ Chart.js
 
-- 📋 Quản lý danh sách công việc (Tasks) và quản lý sự kiện (Events)
-- 👤 Gán người thực hiện cho từng Task
-- 🏷 Phân loại và hiển thị trạng thái task (Todo, In Progress, Done)
-- ⏳ Quản lý deadline và ngày tạo
-- 📆 Lịch (Calendar) để theo dõi Tasks và Events 
-- 🧭 Sidebar điều hướng trực quan
-- 🖼 Giao diện hiện đại, hỗ trợ responsive cơ bản
+## Cách chạy dự án
 
----
+1. Clone repository
+```bash
+git clone https://github.com/YOUR_USERNAME/zein-team-planner.git
+cd zein-team-planner
+```
+Cập nhật connection string trong appsettings.json (nếu cần)
+Áp dụng migrations
+```bash
+dotnet ef migration add DatabaseName
+dotnet ef database update
+```
 
-## 🧰 CÔNG NGHỆ SỬ DỤNG
---------------------------------------------------------------------
-| Công nghệ             | Mục đích sử dụng                         |
-|-----------------------|------------------------------------------|
-| ASP.NET Core MVC      | Backend, xử lý logic và routing          |
-| Entity Framework Core | ORM – tương tác với CSDL                 |
-| Razor View Engine     | Xây dựng giao diện động với C#           |
-| Bootstrap 5           | UI/UX – bố cục và responsive             |
-| Bootstrap Icons       | Biểu tượng icon                          |
-| SQL Server            | Cơ sở dữ liệu (tuỳ cấu hình)             |
-| ChartJs               | Xây dựng biểu đồ (Pie Chart, Bar Chart...|
---------------------------------------------------------------------
----
+2. Chạy ứng dụng
+```bash
+dotnet run
+```
 
-.....Project này vẫn sẽ tiếp tục được phát triển 
+Mở trình duyệt tại địa chỉ được hiển thị - thường là https://localhost:5187.
 
-MADE WITH ❤️ by ZEIN DEV TEAM 
-
-
+Project vẫn đang được phát triển tích cực.
+Mọi góp ý, báo lỗi hoặc pull request đều được chào đón!
+Made with love by ZEIN DEV TEAM
